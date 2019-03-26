@@ -1,0 +1,13 @@
+{
+    "name": "Worklog review",
+    "version": "1.0",
+    "description": "Worklog review",
+    "manifest_version": 2,
+    "content_scripts": [{
+        "js": ["content.js"],
+        "matches": [
+          "https://gitlab.homecred.it/hc-frontend/hc_market/merge_requests/*",
+          "https://gitlab.homecred.it/hc-frontend/axiom/merge_requests/*"
+        ]
+    }]
+}

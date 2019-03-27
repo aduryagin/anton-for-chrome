@@ -26,24 +26,27 @@ const branch = getBranch();
 
 if (branch) {
   const branchNumber = branch.substr(-4);
-  start(branchNumber);
-
-  document.addEventListener('visibilitychange', () => {
-    try {
-      if (branch) {
   
-        if(document.hidden) {
-          stop();
-        } else {
-          start(branchNumber);
+  if (Number(branchNumber)) {
+    start(branchNumber);
+  
+    document.addEventListener('visibilitychange', () => {
+      try {
+        if (branch) {
+    
+          if(document.hidden) {
+            stop();
+          } else {
+            start(branchNumber);
+          }
         }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
-    }
-  });
-
-  window.addEventListener('beforeunload', () => {
-    stop();
-  });
+    });
+  
+    window.addEventListener('beforeunload', () => {
+      stop();
+    });
+  }
 }

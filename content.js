@@ -1,16 +1,35 @@
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
 let started = false;
+
+const sendToAnton = debounce((branchNumber) => {
+  fetch(encodeURI(`https://console.dialogflow.com/api-client/demo/embedded/52d9e889-9db3-477d-b0cd-e16039e07af6/demoQuery?q=идет ревью для ${branchNumber}&sessionId=1`, { mode: 'no-cors' }));
+}, 2000);
 
 const start = (branchNumber) => {
   if (!started) {
     started = true;
-    fetch(`https://console.dialogflow.com/api-client/demo/embedded/52d9e889-9db3-477d-b0cd-e16039e07af6/demoQuery?q=начал%20ревью%20${branchNumber}&sessionId=1`, { mode: 'no-cors' });
+    sendToAnton(branchNumber);
   }
 }
 
-const stop = () => {
+const stop = (branchNumber) => {
   if (started) {
     started = false;
-    fetch(`https://console.dialogflow.com/api-client/demo/embedded/52d9e889-9db3-477d-b0cd-e16039e07af6/demoQuery?q=закончил%20ревью&sessionId=1`, { mode: 'no-cors' });
+    sendToAnton(branchNumber);
   }
 }
 
@@ -35,7 +54,7 @@ if (branch) {
         if (branch) {
     
           if(document.hidden) {
-            stop();
+            stop(branchNumber);
           } else {
             start(branchNumber);
           }
@@ -46,7 +65,7 @@ if (branch) {
     });
   
     window.addEventListener('beforeunload', () => {
-      stop();
+      stop(branchNumber);
     });
   }
 }

@@ -3,6 +3,14 @@
     "version": "1.0",
     "description": "Worklog review",
     "manifest_version": 2,
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "permissions": [
+      "https://console.dialogflow.com/",
+      "https://gitlab.homecred.it/"
+    ],
     "content_scripts": [{
         "js": ["content.js"],
         "matches": [

@@ -16,7 +16,7 @@ function debounce(func, wait, immediate) {
 let started = false;
 
 const sendToAnton = debounce((branchNumber) => {
-  fetch(encodeURI(`https://console.dialogflow.com/api-client/demo/embedded/52d9e889-9db3-477d-b0cd-e16039e07af6/demoQuery?q=идет ревью для ${branchNumber}&sessionId=1`, { mode: 'no-cors' }));
+  chrome.runtime.sendMessage(branchNumber);
 }, 2000);
 
 const start = (branchNumber) => {

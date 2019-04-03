@@ -13,6 +13,7 @@ function debounce(func, wait, immediate) {
 	};
 };
 
+let interval = null;
 let started = false;
 
 const sendToAnton = debounce((branchNumber) => {
@@ -23,6 +24,10 @@ const start = (branchNumber) => {
   if (!started) {
     started = true;
     sendToAnton(branchNumber);
+
+    interval = setInterval(() => {
+      sendToAnton(branchNumber);
+    }, 60 * 1000 * 2);
   }
 }
 
@@ -30,6 +35,7 @@ const stop = (branchNumber) => {
   if (started) {
     started = false;
     sendToAnton(branchNumber);
+    clearInterval(interval);
   }
 }
 

@@ -27,7 +27,7 @@ const start = (branchNumber) => {
 
     interval = setInterval(() => {
       sendToAnton(branchNumber);
-    }, 60 * 1000 * 2);
+    }, 60 * 1000 * 10);
   }
 }
 

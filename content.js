@@ -17,7 +17,9 @@ let interval = null;
 let started = false;
 
 const sendToAnton = debounce((branchNumber) => {
-  chrome.runtime.sendMessage(branchNumber);
+  if (typeof chrome.app.isInstalled !== 'undefined') {
+    chrome.runtime.sendMessage(branchNumber);
+  }
 }, 2000);
 
 const start = (branchNumber) => {

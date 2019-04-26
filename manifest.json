@@ -8,7 +8,6 @@
       "persistent": false
     },
     "permissions": [
-      "https://console.dialogflow.com/",
       "https://gitlab.homecred.it/"
     ],
     "content_scripts": [{
